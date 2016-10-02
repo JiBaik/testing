@@ -6,6 +6,7 @@
 
 angular.module('hooplaAngularTest.models')
   .factory('Metric', function($http, $q, Root) {
+    var metricData = {};
     return {
       index: function index() {
         // find the right value href for the metric index
@@ -34,6 +35,16 @@ angular.module('hooplaAngularTest.models')
             return $q.reject(response);
           }
         );
-      }
+      },
+    inputMetrics: function(params){
+       if(Array.isArray(params)){
+         params.forEach(function(metricObj){
+         metricData[metricObj.url] = metricObj;
+       });
+       }else{
+         throw 'not an array';
+       }
+      },
+      metricData: metricData
     };
   });
