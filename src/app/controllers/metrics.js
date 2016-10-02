@@ -17,11 +17,5 @@ angular.module('hooplaAngularTest')
       }
     );
 
-      // $http({
-      //     method: 'GET',
-      //     url: 'https://api.hoopla.net/users/192aec7a-b073-4933-812a-8b31c7e5df41'
-      //     }).then(function(res){
-      //       console.log('User',res.data)
-      //   });
 
   }]);

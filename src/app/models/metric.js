@@ -36,15 +36,34 @@ angular.module('hooplaAngularTest.models')
           }
         );
       },
-    inputMetrics: function(params){
-       if(Array.isArray(params)){
-         params.forEach(function(metricObj){
+    inputMetrics: function(arrOfMetrics){
+       if(Array.isArray(arrOfMetrics)){
+         arrOfMetrics.forEach(function(metricObj){
          metricData[metricObj.url] = metricObj;
        });
        }else{
          throw 'not an array';
        }
       },
+    inputUsers: function(arrOfUsers, metric){
+      if(Array.isArray(arrOfUsers)){
+        metricData[metric].formattedUsers = {};
+         arrOfUsers.forEach(function(userObj){
+            $http({
+              method: 'GET',
+              url: userObj.owner.href
+              }).then(function(res){
+                metricData[metric].formattedUsers[res.data.email] = {
+                    firstname: res.data.first_name,
+                    lastname: res.data.last_name,
+                    value: userObj.value
+                    };
+            });
+          });
+       }else{
+         throw 'not an array';
+       }
+    },
       metricData: metricData
-    };
+    }
   });

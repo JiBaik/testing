@@ -10,7 +10,7 @@ angular.module('hooplaAngularTest')
           method: 'GET',
           url: $scope.data.links[0].href
           }).then(function(res){
-            console.log('Whats this',res.data)
+            Metric.inputUsers(res.data, $scope.data.url);
         });
-
+        console.log($scope.data);
   }]);

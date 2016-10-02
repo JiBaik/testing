@@ -1,5 +1,14 @@
 h1 {{data.name}}
 
-ul
-  li(ng-repeat='person in data') {{data.value}}
+table(style = "width:100%")
+  tr
+    th First Name
+    th Last Name
+    th Email
+    th Value
+  tr(ng-repeat = '(email, user) in data.formattedUsers')
+    th {{user.firstname}}
+    th {{user.lastname}}
+    th {{email}}
+    th {{user.value}}
 a.btn.btn-default(href="/") Back to metrics
