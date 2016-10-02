@@ -6,9 +6,9 @@ table(style = "width:100%")
     th Last Name
     th Email
     th Value
-  tr(ng-repeat = '(email, user) in data.formattedUsers')
-    th {{user.firstname}}
-    th {{user.lastname}}
-    th {{email}}
-    th {{user.value}}
+  tr(ng-repeat = '(email, user) in data.formattedUsers' ng-click='changeVal(user)')
+    td {{user.firstname}}
+    td {{user.lastname}}
+    td {{email}}
+    td {{user.value}}
 a.btn.btn-default(href="/") Back to metrics

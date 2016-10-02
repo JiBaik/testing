@@ -45,18 +45,19 @@ angular.module('hooplaAngularTest.models')
          throw 'not an array';
        }
       },
-    inputUsers: function(arrOfUsers, metric){
-      if(Array.isArray(arrOfUsers)){
+    inputUsers: function(arrOfValues, metric){
+      if(Array.isArray(arrOfValues)){
         metricData[metric].formattedUsers = {};
-         arrOfUsers.forEach(function(userObj){
+         arrOfValues.forEach(function(valueObj){
             $http({
               method: 'GET',
-              url: userObj.owner.href
+              url: valueObj.owner.href
               }).then(function(res){
                 metricData[metric].formattedUsers[res.data.email] = {
                     firstname: res.data.first_name,
                     lastname: res.data.last_name,
-                    value: userObj.value
+                    value: valueObj.value,
+                    valueData: valueObj
                     };
             });
           });

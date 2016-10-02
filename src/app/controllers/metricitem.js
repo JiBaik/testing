@@ -6,11 +6,37 @@ angular.module('hooplaAngularTest')
         $scope.url = $location.path().substring(8);
         $scope.data = Metric.metricData[$scope.url];
 
-      $http({
-          method: 'GET',
-          url: $scope.data.links[0].href
+        if(!$scope.data.formattedUsers){
+          $http({
+              method: 'GET',
+              url: $scope.data.links[0].href
+              }).then(function(res){
+                Metric.inputUsers(res.data, $scope.data.url);
+            });
+        }
+
+        $scope.changeVal = function(user){
+          do{
+            var val = prompt("Edit Value?", user.value);
+          }while(isNaN(val) || val<0);
+          if(val === null) return;
+          else val = Number(val);
+
+          var data = Object.assign({},user.valueData);
+          data.value = val;
+            $http({
+            method: 'PUT',
+            url: user.valueData.href,
+            data: data,
+            headers:{
+              'Content-Type': 'application/vnd.hoopla.metric-value+json'
+            }
           }).then(function(res){
-            Metric.inputUsers(res.data, $scope.data.url);
-        });
-        console.log($scope.data);
+            user.value = val;
+            user.valueData = res.data;
+          }, function(err){
+            console.log(err);
+          });
+        }
+
   }]);
