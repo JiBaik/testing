@@ -47,7 +47,9 @@ angular.module('hooplaAngularTest.models')
       },
     inputUsers: function(arrOfValues, metric){
       if(Array.isArray(arrOfValues)){
+
         metricData[metric].formattedUsers = {};
+
          arrOfValues.forEach(function(valueObj){
             $http({
               method: 'GET',
@@ -60,6 +62,7 @@ angular.module('hooplaAngularTest.models')
                     valueData: valueObj
                     };
             });
+
           });
        }else{
          throw 'not an array';
